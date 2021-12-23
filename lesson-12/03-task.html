@@ -10,16 +10,13 @@
 <body>
     <pre>
         Задание:
-        Поменяйте цикл for на цикл while не меняя поведение сценария.
+        Замените в коде все функции-выражения на стрелочные функции.
     </pre>
     <script>
-        let i = 0;
-        while (i < 5)
-        {
-            console.log(`значение ${i}`);
+        var data = [1, 2, 3, 4, 5];
 
-            i++;
-        }
+        var result = data.map(value => value * value);
+        result.forEach(e => console.log(e));
     </script>
 </body>
 

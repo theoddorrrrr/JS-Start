@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+</head>
+<body>
+    <pre>
+        Задание:
+        Создайте функцию, которая принимает массив значений и возвращает массив 
+        с дублирующимися значениями или null если повторяющихся значений в массиве 
+        нет.
+    </pre>
+    <script>
+        let arr1 = [1, 2, 1, 2, 3]
+        let arr2 = [1, 2, 3];
+
+        function calculate(array) {
+            let dublicates = [];
+
+            for (let i = 0; i < array.length - 1; i++) {
+                for (let j = i + 1; j < array.length; j++) {
+                    if (array[i] == array[j]) {
+                        dublicates.push(array[i]);
+                        break;
+                    }
+                }
+            }
+
+            if (dublicates.length != 0) return dublicates;
+            else return null;
+        }
+
+        console.log(calculate(arr1));
+        console.log(calculate(arr2));
+    </script>
+</body>
+</html>

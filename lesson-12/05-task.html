@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task X</title>
+</head>
+<body>
+    <pre>
+        Задание:
+        Запросите у пользователя число. Выведите все числа в обратном порядке от введенного пользователем значения до 1. Используйте для решения рекурсию.
+    </pre>
+    <script>
+        let userInput = prompt("Enter a value: ");
+        showValue(userInput);
+
+        function showValue(value) {
+            console.log(value);
+            if (value == 1)
+                return 1;
+            else {
+                value--;
+                showValue(value);
+            }
+
+        }
+    </script>
+</body>
+</html>
