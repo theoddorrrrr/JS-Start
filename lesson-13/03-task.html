@@ -248,8 +248,11 @@
             }
         ];
 
+        let company = "Keebler LLC";
+
         for (const user of users) {
-            console.log(user.name + " from " + user.address.city);
+            if (user.company.name === company)
+                console.log(user.name + " from " + user.address.city);
         }
     </script>
 </body>

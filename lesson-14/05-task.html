@@ -10,11 +10,7 @@
 <body>
     <pre>
         Задание:
-        Все объекты в массиве users имеют одинаковую структуру. 
-        Выведите на экран:
-        1) Адреса электронной почты всех пользователей (email)
-        2) Имя и фамилию пользователей с наибольшим количеством друзей (свойства name и friends)
-        3) Компанию пользователя с наибольшим балансом и компанию пользователя с наименьшим балансом (свойства company и balance)
+        Реализуйте метод showMostFavoritedFruit. Метод должен отображать фрукт, который чаще всего указывали как любимый на основе данных по пользователям из массива users.
     </pre>
     <script>
         // массив сгенерирован с помощью https://next.json-generator.com/
@@ -454,59 +450,100 @@
                 favoriteFruit: 'apple'
             }
         ];
-    
-        function showEmails() {
-            console.log("Emails: ")
 
-            let emails = users.map(user => console.log(user.email))
-            console.log('--------------------------------');
+        function showAllEmails() {
+            console.log("Электронные адреса пользователей:")
+            users.forEach(user => console.log(user.email));
+            console.log('---------------------------------');
         }
 
-        function showHigestFriends() {
-            console.log("The highest person with friends:");
+        // метод для отображения пользователя из массива с наибольшим количеством друзей
+        function showHigestFriendCount() {
+            console.log("Пользователи с наибольшим количеством друзей");
 
-            let max = 0;
+            // в начале поиска пользователя с максимальным количеством друзей устанавливаем переменной max минимально возможное
+            // значение для переменной типа number
+            let max = Number.MIN_VALUE;
 
-            let friends = users.map(user => {
-                if (max < user.friends.length)
+            // Для каждого элемента массива users вызываем функцию, которая передается как параметр метода forEach
+            // текущий элемент массива передается в функцию как параметр user
+            users.forEach(user => {
+                if (max < user.friends.length) // если у текущего пользователя друзей больше чем значение переменной max меняем значение переменной
                     max = user.friends.length;
-            })
+            }); // в итоге в переменной max будет находится значение максимального количества друзей среди пользователей описанных элементами массива
 
-            users.filter(user => user.friends.length == max)
-                .forEach(user => console.log(user.name.first + " " + user.name.last));
+            users
+                .filter(user => user.friends.length == max) // выбираем пользователей в новый массив у которых количество друзей соответствует значению переменной max
+                .forEach(user => console.log(user.name.first + " " + user.name.last)); // выводим всех пользователей с максимальным количеством друзей
 
-            console.log('--------------------------------');
+            console.log('---------------------------------');
         }
 
-        function showBalance() {
+        // функция для отображения компании пользователя с максимальным и минимальным балансом
+        function showMinMaxBalance() {
+            // переменные для хранения максимального и минимального значения баланса
             let minBalance = Number.MAX_VALUE;
             let maxBalance = Number.MIN_VALUE;
 
+            // Проход по всем пользователям для того чтобы определить значения переменных определенных ранее
             users.forEach(user => {
-                const balance = +user.balance;
-                if (balance > maxBalance)
-                    maxBalance = balance;
-                else if (balance < minBalance) {
-                    minBalance = balance;
-                } 
-            })
+                const currentBalance = +user.balance;
+                if (currentBalance > maxBalance)
+                    maxBalance = currentBalance;
+                else if (currentBalance < minBalance) {
+                    minBalance = currentBalance;
+                }
+            });
 
-            console.log("Companies with highest balance: ")
-            users.filter(user => user.balance == maxBalance)
+            console.log("Компании пользователей с наибольшим балансом:")
+            users
+                .filter(user => user.balance == maxBalance) // выборка из массива пользователей, значение свойства balance которых соответствует значению переменной maxBalance
+                .forEach(user => console.log(user.company)); // вывод компании в которой работает пользователь
+
+            // тоже самео для минимального баланса
+            console.log("Компании пользователей с наименьшим балансом:")
+            users
+                .filter(user => user.balance == minBalance)
                 .forEach(user => console.log(user.company));
 
-            console.log('--------------------------------');
-
-            console.log("Companies with lowest balance: ")
-            users.filter(user => user.balance == minBalance)
-                .forEach(user => console.log(user.company));
-
-            console.log('--------------------------------');
+            console.log('---------------------------------');
         }
 
-        showEmails();
-        showHigestFriends();
-        showBalance();
+        function showMostFavoritedFruit() {
+            let counters = {}; 
+
+            users.forEach(user => {
+                if (counters[user.favoriteFruit]) {
+                    counters[user.favoriteFruit]++;
+                }
+                else {
+                    counters[user.favoriteFruit] = 1;
+                }
+            });
+
+            console.log('All type of fruits: ');
+            for (const fruit in counters) {
+                console.log(fruit);
+            }
+
+            let max = Number.MIN_VALUE;
+            let favoriteFruit = "";
+
+            for (const key in counters) { 
+                if(counters[key] > max) {
+                    max = counters[key];
+                    favoriteFruit = key;
+                }
+            }
+
+            console.log(favoriteFruit + " is the most favorite fruit")
+        }
+
+        // запуск методов определенных ранее
+        showAllEmails();
+        showHigestFriendCount();
+        showMinMaxBalance();
+        showMostFavoritedFruit();
     </script>
 </body>
 
